@@ -7,11 +7,12 @@ package com.mycompany.sistem.informasi.jasa.travel.netbeans;
 
 /**
  *
- * @author Aji
+ * @author Aji Firlana
+ * @author 089531941653
  */
 public class SISTEMINFORMASIJASATRAVELNETBEANS {
 
     public static void main(String[] args) {
-               new login().setVisible(true);
+               new Login().setVisible(true);
     }
 }

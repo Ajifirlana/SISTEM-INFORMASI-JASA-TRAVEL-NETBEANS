@@ -1,0 +1,17 @@
+berikut ini work scope yang aku bakal kerjakan
+1. membuat database untuk aplikasi travel
+2. membuat desain dengan code dan program untuk setiap fiturnya
+- fitur login
+- fitur menu utama
+- menu entri karyawan
+- menu entri pelanggan
+- menu entri mobil
+- menu entri supir
+- menu entri jadwal
+- menu entri keberangkatan
+- laporan travel
+- laporan mobil
+- laporan supir
+- laporan jadwal
+- laporan pelanggan (hari/bulan)
+- laporan keberangkatan (hari/bulan)
