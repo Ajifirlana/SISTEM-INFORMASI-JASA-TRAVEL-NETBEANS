@@ -18,7 +18,7 @@ public class ModelMobil extends AbstractTableModel{
 
     // Provide meaningful column names
     private String[] columnNames = {"ID", 
-        "Nama","Alamat","No Telepon","Kode Jadwal"};
+        "Kode Mobil","Merek Mobil","Tipe Mobil","Tahun Keluar","Bahan Bakar","Kondisi Mobil"};
 
     public ModelMobil(ResultSet rs) {
         this.resultSet = rs;

@@ -23,10 +23,20 @@ private Connection connection;
      * Creates new form IndexMobil
      */
     public IndexMobil() {
-        initComponents();
+        initComponents();    
+        connectToDatabase();
         loadDataToTable();
     }
 
+    private void connectToDatabase() {
+        try {
+            connection = (Connection)koneksi.koneksiDB();
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+      
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,25 +48,27 @@ private Connection connection;
 
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        no_telp = new javax.swing.JTextField();
+        tipe_mobil = new javax.swing.JTextField();
         keyword = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        id_mobil = new javax.swing.JTextField();
+        kode_mobil = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cari = new javax.swing.JButton();
-        nama = new javax.swing.JTextField();
+        tahun_keluar = new javax.swing.JTextField();
         simpan = new javax.swing.JButton();
         hapus = new javax.swing.JButton();
         edit = new javax.swing.JButton();
-        id_pelanggan = new javax.swing.JTextField();
-        alamat = new javax.swing.JTextField();
+        merk_mobil = new javax.swing.JTextField();
+        bahan_bakar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         kembali = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        kondisi_mobil = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,12 +76,12 @@ private Connection connection;
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ENTRY DATA PELANGGAN");
+        jLabel1.setText("ENTRY DATA MOBIL");
         jLabel1.setToolTipText("");
 
-        no_telp.addActionListener(new java.awt.event.ActionListener() {
+        tipe_mobil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                no_telpActionPerformed(evt);
+                tipe_mobilActionPerformed(evt);
             }
         });
 
@@ -106,11 +118,11 @@ private Connection connection;
         jTable1.setPreferredSize(new java.awt.Dimension(250, 80));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel2.setText("Nama");
+        jLabel2.setText("Merk Mobil");
 
-        jLabel3.setText("Alamat");
+        jLabel3.setText("Tipe Mobil");
 
-        jLabel7.setText("Kode Jadwal");
+        jLabel7.setText("Bahan Bakar");
 
         cari.setText("Cari");
         cari.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +154,7 @@ private Connection connection;
 
         jButton1.setText("Tampil");
 
-        jLabel6.setText("ID");
+        jLabel6.setText("Kode Mobil");
 
         kembali.setText("Kembali");
         kembali.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +163,9 @@ private Connection connection;
             }
         });
 
-        jLabel4.setText("No Telp");
+        jLabel4.setText("Tahun Keluar");
+
+        jLabel8.setText("Kondisi Mobil");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,36 +183,35 @@ private Connection connection;
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(id_mobil, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(id_pelanggan))
+                            .addComponent(kode_mobil, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(merk_mobil))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tahun_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGap(24, 24, 24)
-                                .addComponent(no_telp, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tipe_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bahan_bakar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(190, 190, Short.MAX_VALUE))
+                                .addComponent(kondisi_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(182, 182, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(keyword, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cari))))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -213,8 +226,15 @@ private Connection connection;
                         .addComponent(hapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(kembali)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addContainerGap(486, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(keyword, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cari)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,18 +243,20 @@ private Connection connection;
                 .addComponent(jLabel1)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kode_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6)
                     .addComponent(jLabel3)
-                    .addComponent(no_telp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipe_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bahan_bakar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(merk_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tahun_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel8)
+                    .addComponent(kondisi_mobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari)
@@ -279,7 +301,7 @@ private void cariData(String key) {
         Statement stt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         
         // Execute the SQL query to search for records containing the key in 'nama' or 'no_telp' columns
-        resultSet = stt.executeQuery("SELECT * FROM tb_mobil WHERE nama LIKE '%" + key + "%' OR no_telp LIKE '%" + key + "%'");
+        resultSet = stt.executeQuery("SELECT * FROM tb_mobil WHERE kode_mobil LIKE '%" + key + "%' OR merk_mobil LIKE '%" + key + "%'");
         
         // Create a custom model (assumed to be a class named ModelMobil) using the result set
         ModelMobil customModel = new ModelMobil(resultSet);
@@ -307,24 +329,28 @@ private void cariData(String key) {
 }
  
  private void bersih_field(){
-        id_mobil.setText(null);
-        alamat.setText(null);
-        no_telp.setText(null);
-        id_mobil.setText(null);  
+        kode_mobil.setText(null);
+        bahan_bakar.setText(null);
+        tipe_mobil.setText(null);
+        kode_mobil.setText(null); 
+        merk_mobil.setText(null);  
+        tahun_keluar.setText(null);  
+        kondisi_mobil.setText(null);          
     }
     private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
         // TODO add your handling code here:
         try {
-            String sql = "INSERT INTO tb_mobil (id_mobil, nama, alamat, no_telp,kode_jadwal) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tb_mobil (kode_mobil, merk_mobil, tipe_mobil, tahun_keluar,bahan_bakar,kondisi_mobil) VALUES (?, ?, ?, ?, ?, ?)";
             java.sql.Connection conn = (Connection) koneksi.koneksiDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
 
             // Set values for parameters
-            pst.setString(1, id_mobil.getText());
-            pst.setString(2, nama.getText());
-            pst.setString(3, alamat.getText());
-            pst.setString(4, no_telp.getText());
-            pst.setString(5, id_mobil.getText());
+            pst.setString(1, kode_mobil.getText());
+            pst.setString(2, merk_mobil.getText());
+            pst.setString(3, tipe_mobil.getText());
+            pst.setString(4, tahun_keluar.getText());
+            pst.setString(5, bahan_bakar.getText());
+            pst.setString(6, kondisi_mobil.getText());
             // Execute the query
             pst.executeUpdate();
 
@@ -340,7 +366,7 @@ private void cariData(String key) {
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
         // fungsi hapus data
         try {
-            String sql ="delete from tb_mobil where id_mobil='"+id_mobil.getText()+"'";
+            String sql ="delete from tb_mobil where kode_mobil='"+kode_mobil.getText()+"'";
             java.sql.Connection conn=(Connection)koneksi.koneksiDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             pst.execute();
@@ -355,7 +381,7 @@ private void cariData(String key) {
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // Edit Data
         try {
-            String sql ="UPDATE tb_mobil SET nama = '"+nama.getText()+"', alamat = '"+alamat.getText()+"',no_telp= '"+no_telp.getText()+"',kode_jadwal= '"+id_mobil.getText()+"' WHERE id_mobil = '"+id_mobil.getText()+"'";
+            String sql ="UPDATE tb_mobil SET tahun_keluar = '"+tahun_keluar.getText()+"', bahan_bakar = '"+bahan_bakar.getText()+"',tipe_mobil= '"+tipe_mobil.getText()+"',kode_mobil= '"+kode_mobil.getText()+"' WHERE kode_mobil = '"+kode_mobil.getText()+"'";
             java.sql.Connection conn=(Connection)koneksi.koneksiDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             pst.execute();
@@ -373,9 +399,9 @@ private void cariData(String key) {
         this.dispose();
     }//GEN-LAST:event_kembaliActionPerformed
 
-    private void no_telpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_telpActionPerformed
+    private void tipe_mobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipe_mobilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_no_telpActionPerformed
+    }//GEN-LAST:event_tipe_mobilActionPerformed
 
     private void keywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keywordActionPerformed
         // TODO add your handling code here:
@@ -417,12 +443,10 @@ private void cariData(String key) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField alamat;
+    private javax.swing.JTextField bahan_bakar;
     private javax.swing.JButton cari;
     private javax.swing.JButton edit;
     private javax.swing.JButton hapus;
-    private javax.swing.JTextField id_mobil;
-    private javax.swing.JTextField id_pelanggan;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -431,12 +455,16 @@ private void cariData(String key) {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton kembali;
     private javax.swing.JTextField keyword;
-    private javax.swing.JTextField nama;
-    private javax.swing.JTextField no_telp;
+    private javax.swing.JTextField kode_mobil;
+    private javax.swing.JTextField kondisi_mobil;
+    private javax.swing.JTextField merk_mobil;
     private javax.swing.JButton simpan;
+    private javax.swing.JTextField tahun_keluar;
+    private javax.swing.JTextField tipe_mobil;
     // End of variables declaration//GEN-END:variables
 }

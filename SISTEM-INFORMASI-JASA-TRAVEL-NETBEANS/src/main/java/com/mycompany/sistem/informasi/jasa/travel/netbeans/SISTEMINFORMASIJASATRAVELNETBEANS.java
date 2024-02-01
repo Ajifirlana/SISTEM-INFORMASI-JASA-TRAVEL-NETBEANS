@@ -13,6 +13,6 @@ package com.mycompany.sistem.informasi.jasa.travel.netbeans;
 public class SISTEMINFORMASIJASATRAVELNETBEANS {
 
     public static void main(String[] args) {
-               new Login().setVisible(true);
+               new login().setVisible(true);
     }
 }
